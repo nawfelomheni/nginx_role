@@ -1,0 +1,24 @@
+---
+- tasks:
+  - name: Add epel-release repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Install nginx
+    yum:
+      name: nginx
+      state: present
+
+- name: Insert Index Page
+  template:
+    src: "{{ item }}"
+    dest: /usr/share/nginx/html/index.html
+  with_items:
+    - index.html
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
+
